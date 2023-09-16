@@ -8,11 +8,12 @@ public class PlayerController : MonoBehaviour
     private Animator anim;
     public float MovementSpeed;
     private Vector2 MovementInput;
-
+    private SpriteRenderer spriteRenderer;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        spriteRenderer= GetComponent<SpriteRenderer>();
     }
     // Start is called before the first frame update
     private void OnMove(InputValue inputValue)
@@ -34,15 +35,28 @@ public class PlayerController : MonoBehaviour
         // Store the input for other purposes if needed.
         MovementInput = inputVector;
 
+        if (inputVector.x < 0)
+        {
+            // Flip the sprite to the left.
+            spriteRenderer.flipX = true;
+        }
+        else if (inputVector.x > 0)
+        {
+            // Flip the sprite to the right.
+            spriteRenderer.flipX = false;
+        }
     }
-
+    private void Animate()
+    {
+        anim.SetFloat("Movement_X", MovementInput.x);
+        anim.SetFloat("Movement_Y", MovementInput.y);
+    }
     // Update is called once per frame
     void FixedUpdate()
     {
-
+        Animate();
         
-             rb.velocity = MovementInput * MovementSpeed;
-       
+             rb.velocity = MovementInput * MovementSpeed;  
        
     }
 }
