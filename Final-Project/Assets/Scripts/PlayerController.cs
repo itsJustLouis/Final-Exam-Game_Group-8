@@ -50,6 +50,11 @@ public class PlayerController : MonoBehaviour
     {
         anim.SetFloat("Movement_X", MovementInput.x);
         anim.SetFloat("Movement_Y", MovementInput.y);
+        
+    }
+    private void OnFire()
+    {
+        anim.SetTrigger("Attack");
     }
     // Update is called once per frame
     void FixedUpdate()
