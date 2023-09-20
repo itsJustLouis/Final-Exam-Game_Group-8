@@ -100,7 +100,7 @@ public class EnemyAI : MonoBehaviour
                     withinStoppingDistance = true;
 
                    // Initiate the attack (Replace the Debug.Log with the attack code)
-                //   Debug.Log("Initiating attack!");
+                   Debug.Log("Initiating attack!");
 
                    // Add your attack code here, dealing damage to the target
                    // You can call a method for the attack or trigger an animation
