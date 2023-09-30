@@ -22,7 +22,22 @@ public class EnemyAI : MonoBehaviour
 
     [Header("Combat")]
     public float attackDistance = 0.5f; // The distance at which the enemy will initiate an attack
-  
+
+    [Header("Enemy Type")]
+    public bool melee;
+    public bool shooting;
+
+    [Header("Melee")]
+    public GameObject swordStrikePrefab;
+    private GameObject swordStrikeInstance;
+    private float lastAttackTime = 0.0f; // Track the time of the last attack.
+    private bool canAttack = true; // Flag to track if the enemy can attack.
+    private float attackCooldown = 3.0f; // Cooldown time between attacks.
+
+
+    [Header("Shooting")]
+    public GameObject fireThrowPrefab;
+    private GameObject fireThrowInstance;
 
     private Path path; //path finding feature
     private int currentWayPoint = 0;
@@ -93,26 +108,46 @@ public class EnemyAI : MonoBehaviour
             float targetDistance = Vector2.Distance(rb.position, target.transform.position);
             if (followEnabled && targetDistance < activateDistance)
             {
-                if (targetDistance <= attackDistance) // Within stopping distance and attacking distance //next i will check if its done attacking, if its not done attacking it must not follow the player
+            if (targetDistance <= attackDistance)
+            {
+                // Stop the enemy's movement
+                rb.velocity = Vector2.zero;
+                withinStoppingDistance = true;
+                if (melee && canAttack)
                 {
-                    // Stop the enemy's movement
-                    rb.velocity = Vector2.zero;
-                    withinStoppingDistance = true;
+                    // Instantiate the sword strike animation.
+                    swordStrikeInstance = Instantiate(swordStrikePrefab, transform.position, Quaternion.identity);
 
-                   // Initiate the attack (Replace the Debug.Log with the attack code)
-                   Debug.Log("Initiating attack!");
-
-                   // Add your attack code here, dealing damage to the target
-                   // You can call a method for the attack or trigger an animation
-               }
-                else
-                {
-                    // Resume movement when outside stopping distance
-                    withinStoppingDistance = false;
+                    // Set the flag to indicate the enemy has attacked.
+                    canAttack = false;
+                    Destroy(swordStrikeInstance, 0.25f);
                 }
+                if(shooting && canAttack)
+                {
+                    // Instantiate the sword strike animation.
+                    fireThrowInstance = Instantiate(fireThrowPrefab, transform.position, Quaternion.identity);
+
+                    // Set the flag to indicate the enemy has attacked.
+                    canAttack = false;
+                    Destroy(fireThrowInstance, 0.5f);
+                }
+                // Add your attack code here, dealing damage to the target
+
+            }
+            else
+            {
+                // Resume movement when outside stopping distance
+                withinStoppingDistance = false;
             }
         }
 
+        // Check if the cooldown period has passed and reset the canAttack flag.
+        if (!canAttack && Time.time - lastAttackTime >= attackCooldown)
+        {
+            canAttack = true;
+            lastAttackTime = Time.time;
+        }
+    }
 
     private bool TargetInDistance()
     {
