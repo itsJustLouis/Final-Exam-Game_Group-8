@@ -63,7 +63,8 @@ public class Player_2_Controller : MonoBehaviour
         }
        
     }
-     private bool TryMove(Vector2 direction)
+    
+    private bool TryMove(Vector2 direction)
      {
         if (direction != Vector2.zero)
         {
