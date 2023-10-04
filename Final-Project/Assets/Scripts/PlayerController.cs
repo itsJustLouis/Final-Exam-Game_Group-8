@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
@@ -13,14 +14,26 @@ public class PlayerController : MonoBehaviour
     public float collisionOffset = 0.05f;
     List<RaycastHit2D> castCollisions = new List<RaycastHit2D>();
     bool canMove = true;
-
+    public float speed;
+    public float stamina;
+    public float maxStamina;
+    public bool isrunning;
     //public SwordAttack swordAttack;
+    public Light2D FlashLight;
+    public InputAction accelerateAction;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         spriteRenderer= GetComponent<SpriteRenderer>();
+        stamina = maxStamina;
+        MovementSpeed = 2;
+
         
+        
+
+
     }
     // Start is called before the first frame update
     public void OnMove(InputValue inputValue)
@@ -30,6 +43,45 @@ public class PlayerController : MonoBehaviour
 
       
     }
+    public void OnAccelerate()
+    {
+        if (stamina > 0)
+        {
+            isrunning = true;
+            //MovementSpeed = 5;
+            stamina -= Time.deltaTime; // decrease over time
+           
+        }
+        else
+        {
+            // If Space is not pressed or stamina is empty, return speed to normal and gradually refill stamina
+         //   MovementSpeed = 2;
+            if (stamina < maxStamina)
+            {
+                stamina += Time.deltaTime; // increase over time
+            }
+            isrunning = false;
+
+            // Ensure stamina stays within its bounds
+            stamina = Mathf.Clamp(stamina, 0, maxStamina);
+        }
+
+    }
+
+    public void OnAccelerateCanceled()
+    {
+        // If Space is not pressed or stamina is empty, return speed to normal and gradually refill stamina
+        MovementSpeed = 2;
+        if (stamina < maxStamina)
+        {
+            stamina += Time.deltaTime; // increase over time
+        }
+        isrunning = false;
+
+        // Ensure stamina stays within its bounds
+        stamina = Mathf.Clamp(stamina, 0, maxStamina);
+    }
+
     public void Attack()
     {
        
@@ -56,13 +108,24 @@ public class PlayerController : MonoBehaviour
     }
     private void OnFire()
     {
-        anim.SetTrigger("Attack");
+       /// anim.SetTrigger("Attack");
     }
     // Update is called once per frame
     void FixedUpdate()
     {
         Animate();
-
+        if (isrunning)
+        {
+            FlashLight.intensity = 0f;
+        }
+        else
+        {
+            // If the player is not running and the light is off, turn it back on after a delay
+            if (FlashLight.intensity == 0f)
+            {
+                Invoke("TurnOnLight", 3f); // Wait for 3 seconds before turning on the light
+            }
+        }
         if (canMove)
         {
             if (movementInput != Vector2.zero)
@@ -82,16 +145,43 @@ public class PlayerController : MonoBehaviour
               
 
             }
-         
+
 
             //set direction of sprite to movement direction
 
 
-            
+
         }
 
+
+        Gamepad gamepad = Gamepad.current; //get the current gamepad
+         if ((Input.GetKey(KeyCode.Space)|| ( gamepad != null && gamepad.buttonEast.isPressed)) && stamina > 1)
+    {
+        isrunning = true;
+        MovementSpeed = 5;
+        stamina -= Time.deltaTime; // decrease over time
+    }
+    else
+    {
+        // If Space is not pressed or stamina is empty, return speed to normal and gradually refill stamina
+        MovementSpeed = 2;
+        if (stamina < maxStamina)
+        {
+            stamina += Time.deltaTime; // increase over time
+        }
+        isrunning = false;
     }
 
+    // Ensure stamina stays within its bounds
+    stamina = Mathf.Clamp(stamina, 0, maxStamina);
+
+
+
+    }
+    void TurnOnLight()
+    {
+        FlashLight.intensity = 2f;
+    }
     private bool TryMove(Vector2 direction)
     {
         if (direction != Vector2.zero)
@@ -113,6 +203,7 @@ public class PlayerController : MonoBehaviour
         }
 
 
+        
 
     }
 

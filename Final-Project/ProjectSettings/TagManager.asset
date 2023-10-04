@@ -43,3 +43,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Ghost
+    uniqueID: 2030643175
+    locked: 0
