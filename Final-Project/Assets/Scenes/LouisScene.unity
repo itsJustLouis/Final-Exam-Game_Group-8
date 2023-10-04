@@ -1183,7 +1183,7 @@ MonoBehaviour:
   melee: 0
   shooting: 1
   swordStrikePrefab: {fileID: 150093603582405201, guid: 707bdd0af80766c4cbf8a8202bdf4b38, type: 3}
-  attackCooldown: 3
+  attackCooldown: 5
   fireThrowPrefab: {fileID: 1480287992461266052, guid: 05ef030e9ff202d4b8d141cd8ff61bb9, type: 3}
 --- !u!50 &2013503096
 Rigidbody2D:
@@ -1376,6 +1376,10 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1628223761}
+    - target: {fileID: 2948309115087882340, guid: e733592085830b44691ebfc99439d775, type: 3}
+      propertyPath: attackDistance
+      value: 1.1
+      objectReference: {fileID: 0}
     - target: {fileID: 2948309115087882344, guid: e733592085830b44691ebfc99439d775, type: 3}
       propertyPath: m_RootOrder
       value: 0
