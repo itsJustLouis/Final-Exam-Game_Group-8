@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Hitbox
   - Slime_Enemy
+  - Enemy
   layers:
   - Default
   - TransparentFX
