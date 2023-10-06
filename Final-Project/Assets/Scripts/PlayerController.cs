@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     //public SwordAttack swordAttack;
     public Light2D FlashLight;
     public InputAction accelerateAction;
-
+    public Battery Battery;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
         spriteRenderer= GetComponent<SpriteRenderer>();
         stamina = maxStamina;
         MovementSpeed = 2;
-
+        Battery= GetComponentInChildren<Battery>();
         
         
 
@@ -108,12 +108,43 @@ public class PlayerController : MonoBehaviour
     }
     private void OnFire()
     {
-       /// anim.SetTrigger("Attack");
+        FlashLight.color = Color.red;
+        Invoke("WhiteFlash", 0.5f);
+        Battery.DecreaseAmount();
+        Battery.isRegenerating = false;
+    }
+    public void WhiteFlash()
+    {
+        FlashLight.color = Color.white;
     }
     // Update is called once per frame
     void FixedUpdate()
     {
+
+        Gamepad gamepad = Gamepad.current; //get the current gamepad
+        if ((Input.GetKey(KeyCode.Space) || (gamepad != null && gamepad.buttonEast.isPressed)) && stamina > 1)
+        {
+            isrunning = true;
+            MovementSpeed = 5;
+            stamina -= Time.deltaTime; // decrease over time
+        }
+        else
+        {
+            // If Space is not pressed or stamina is empty, return speed to normal and gradually refill stamina
+            MovementSpeed = 2;
+            if (stamina < maxStamina)
+            {
+                stamina += Time.deltaTime; // increase over time
+            }
+            isrunning = false;
+        }
+
+        // Ensure stamina stays within its bounds
+        stamina = Mathf.Clamp(stamina, 0, maxStamina);
+
         Animate();
+
+
         if (isrunning)
         {
             FlashLight.intensity = 0f;
@@ -154,33 +185,18 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        Gamepad gamepad = Gamepad.current; //get the current gamepad
-         if ((Input.GetKey(KeyCode.Space)|| ( gamepad != null && gamepad.buttonEast.isPressed)) && stamina > 1)
-    {
-        isrunning = true;
-        MovementSpeed = 5;
-        stamina -= Time.deltaTime; // decrease over time
-    }
-    else
-    {
-        // If Space is not pressed or stamina is empty, return speed to normal and gradually refill stamina
-        MovementSpeed = 2;
-        if (stamina < maxStamina)
-        {
-            stamina += Time.deltaTime; // increase over time
-        }
-        isrunning = false;
-    }
-
-    // Ensure stamina stays within its bounds
-    stamina = Mathf.Clamp(stamina, 0, maxStamina);
+       
 
 
 
     }
     void TurnOnLight()
     {
-        FlashLight.intensity = 2f;
+        if (!isrunning)
+        {
+            FlashLight.intensity = 2f;
+        }
+       
     }
     private bool TryMove(Vector2 direction)
     {

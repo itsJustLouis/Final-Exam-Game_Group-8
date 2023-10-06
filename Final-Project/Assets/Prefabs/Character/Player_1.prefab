@@ -122,6 +122,20 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   collisionOffset: 0.05
+  speed: 0
+  stamina: 0
+  maxStamina: 0
+  isrunning: 0
+  FlashLight: {fileID: 0}
+  accelerateAction:
+    m_Name: Accelerate
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 0628b587-43ac-4418-a936-71dbb6733fa1
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!114 &226036650702022002
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,11 +6,8 @@ TagManager:
   tags:
   - Hitbox
   - Slime_Enemy
-  - Enemy
-  - FollowCam
-  - TorchLight
-  - Decor
-  - Door
+  - StaminBar
+  - Health
   layers:
   - Default
   - TransparentFX
