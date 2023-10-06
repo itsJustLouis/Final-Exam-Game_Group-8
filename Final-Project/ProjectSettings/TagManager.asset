@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Hitbox
   - Slime_Enemy
+  - StaminBar
+  - Health
   layers:
   - Default
   - TransparentFX
