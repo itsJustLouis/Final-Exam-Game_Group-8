@@ -8,6 +8,7 @@ TagManager:
   - Slime_Enemy
   - Enemy
   - FollowCam
+  - TorchLight
   layers:
   - Default
   - TransparentFX
