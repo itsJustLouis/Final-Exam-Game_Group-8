@@ -396,7 +396,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &344379506
 Transform:
   m_ObjectHideFlags: 0
@@ -1221,6 +1221,7 @@ MonoBehaviour:
   detectionRange: 3.5
   detectionInterval: 1
   EnemyPrefab: {fileID: 945407906}
+  maxInstances: 5
 --- !u!1 &1281057114
 GameObject:
   m_ObjectHideFlags: 0
