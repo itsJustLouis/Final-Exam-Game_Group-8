@@ -8,6 +8,9 @@ TagManager:
   - Slime_Enemy
   - StaminBar
   - Health
+  - Light
+  - DmgLight
+  - Explosion
   layers:
   - Default
   - TransparentFX
@@ -15,9 +18,9 @@ TagManager:
   - Hitbox
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Player
+  - Enemy
+  - obstacle
   - 
   - 
   - 

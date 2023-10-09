@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Animator anim;
     public float MovementSpeed;
+    public float MovementSpeedCache;
     private Vector2 movementInput;
     private SpriteRenderer spriteRenderer;
     public ContactFilter2D movementFilter;
@@ -20,18 +21,21 @@ public class PlayerController : MonoBehaviour
     public bool isrunning;
     //public SwordAttack swordAttack;
     public Light2D FlashLight;
+    public Light2D ConeLight;
     public InputAction accelerateAction;
     public Battery Battery;
+    public GameObject DmgLightCollider;
+    public GameObject LightCollider;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         spriteRenderer= GetComponent<SpriteRenderer>();
         stamina = maxStamina;
-        MovementSpeed = 2;
+        MovementSpeedCache = MovementSpeed;
         Battery= GetComponentInChildren<Battery>();
-        
-        
+        DmgLightCollider.active= false;
+        LightCollider.active = true;
 
 
     }
@@ -47,7 +51,7 @@ public class PlayerController : MonoBehaviour
     {
         if (stamina > 0)
         {
-            isrunning = true;
+            IsRunning();
             //MovementSpeed = 5;
             stamina -= Time.deltaTime; // decrease over time
            
@@ -67,7 +71,20 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+    public bool IsRunning()
+    {
+        
+            isrunning = true;
 
+       /// StopCoroutine("TurnOnLight");
+
+        return isrunning;
+    }
+   public bool IsNotRunning()
+    {
+        isrunning = false;
+        return isrunning;
+    }
     public void OnAccelerateCanceled()
     {
         // If Space is not pressed or stamina is empty, return speed to normal and gradually refill stamina
@@ -112,31 +129,39 @@ public class PlayerController : MonoBehaviour
         Invoke("WhiteFlash", 0.5f);
         Battery.DecreaseAmount();
         Battery.isRegenerating = false;
+        DmgLightCollider.active = true;
+       canMove = false;
+        LightCollider.active = false;
     }
     public void WhiteFlash()
     {
         FlashLight.color = Color.white;
+        DmgLightCollider.active=false;
+        LightCollider.active = true;
+        canMove=true;
     }
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
 
         Gamepad gamepad = Gamepad.current; //get the current gamepad
         if ((Input.GetKey(KeyCode.Space) || (gamepad != null && gamepad.buttonEast.isPressed)) && stamina > 1)
         {
+            IsRunning();
             isrunning = true;
-            MovementSpeed = 5;
+            MovementSpeed = 7;
             stamina -= Time.deltaTime; // decrease over time
         }
         else
         {
             // If Space is not pressed or stamina is empty, return speed to normal and gradually refill stamina
-            MovementSpeed = 2;
+          MovementSpeed = MovementSpeedCache;
             if (stamina < maxStamina)
             {
                 stamina += Time.deltaTime; // increase over time
             }
-            isrunning = false;
+            //delay on running
+            Invoke("IsNotRunning", 1f);
         }
 
         // Ensure stamina stays within its bounds
@@ -148,11 +173,13 @@ public class PlayerController : MonoBehaviour
         if (isrunning)
         {
             FlashLight.intensity = 0f;
+            ConeLight.intensity = 0f;
+            StopCoroutine("TurnOnLight");
         }
         else
         {
             // If the player is not running and the light is off, turn it back on after a delay
-            if (FlashLight.intensity == 0f)
+            if (FlashLight.intensity == 0f && !isrunning)
             {
                 Invoke("TurnOnLight", 3f); // Wait for 3 seconds before turning on the light
             }
@@ -195,6 +222,12 @@ public class PlayerController : MonoBehaviour
         if (!isrunning)
         {
             FlashLight.intensity = 2f;
+            ConeLight.intensity = 2f;
+        }
+        else
+        {
+            FlashLight.intensity = 0f;
+            ConeLight.intensity = 0f;
         }
        
     }
