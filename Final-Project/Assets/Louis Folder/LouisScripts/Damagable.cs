@@ -7,6 +7,8 @@ public class Damagable : MonoBehaviour
 {
    
     public int MaxHealth = 100;
+    public int damage;
+    private float lastDamageTime;
     public GameObject enemy;
     public Canvas healthCanva;
 
@@ -57,19 +59,27 @@ public class Damagable : MonoBehaviour
 
         }
     }
-    public void OnTriggerEnter2D(Collider2D collision)
+    //public void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (collision.gameObject.tag == "TorchLight")
+    //    {
+    //        Health -= damage;
+    //    }
+    //}
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "bullet")
+        if (collision.gameObject.tag == "TorchLight")
         {
-            Health -= 10;
+            // Check if enough time has passed since the last damage
+            if (Time.time - lastDamageTime >= 0.5f)
+            {
+                Health -= damage;
+                lastDamageTime = Time.time; // Update the last damage time
+            }
         }
     }
     public void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            Health -= 10;
-        }
         if (Health <= 0)
         {
             OnDead?.Invoke();
