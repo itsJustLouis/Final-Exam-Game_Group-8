@@ -10,6 +10,8 @@ TagManager:
   - FollowCam
   - TorchLight
   - Ground
+  - strike
+  - slash
   layers:
   - Default
   - TransparentFX
