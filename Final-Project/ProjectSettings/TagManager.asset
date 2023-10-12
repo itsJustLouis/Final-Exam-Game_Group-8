@@ -11,6 +11,8 @@ TagManager:
   - Light
   - DmgLight
   - Explosion
+  - BatteryUI
+  - Battery
   layers:
   - Default
   - TransparentFX

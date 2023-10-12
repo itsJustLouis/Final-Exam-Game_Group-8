@@ -10,12 +10,14 @@ public class EnemyAnim : MonoBehaviour
     Vector2 currentPosition;
     public GameObject ExplosionObject;
     public EnemyHealth EnemyHealth;
+    public GameObject Enemyparent;
     void Start()
     {
         rb = GetComponentInParent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         lastPosition = rb.position;
         EnemyHealth = GetComponentInParent<EnemyHealth>();
+        
     }
 
     void FixedUpdate()
@@ -38,6 +40,7 @@ public class EnemyAnim : MonoBehaviour
     public void endExplosion()
     {
         ExplosionObject.SetActive(false);
+        Enemyparent.SetActive(false);
         EnemyHealth.DeactivateEnemy();
     }
     void Animate(Vector2 direction)

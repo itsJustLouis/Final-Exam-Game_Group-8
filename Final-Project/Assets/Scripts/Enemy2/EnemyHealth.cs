@@ -8,7 +8,7 @@ public class EnemyHealth : MonoBehaviour
     public int health = 100;
     private Animator animator;
     private Rigidbody2D rb;
-   
+    public float knockbackForce;
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
@@ -16,13 +16,17 @@ public class EnemyHealth : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, Vector3 hitDirection)
     {
         health -= damage;
 
         if (health <= 0)
         {
             Die();
+        }else
+        {
+            // Apply a force to the enemy in the opposite direction of the hit
+            GetComponent<Rigidbody2D>().AddForce(-hitDirection.normalized * knockbackForce, ForceMode2D.Impulse);
         }
     }
     void OnTriggerEnter2D(Collider2D other)
@@ -37,8 +41,10 @@ public class EnemyHealth : MonoBehaviour
         {
             if (other.gameObject.CompareTag("DmgLight"))
             {
+
+                Vector3 hitDirection = other.transform.position - transform.position;
                 //reduce health here
-                TakeDamage(1);
+                TakeDamage(1, hitDirection);
                // canMove = false;
                // Invoke("CanMoveAgain", 1f);
             }
