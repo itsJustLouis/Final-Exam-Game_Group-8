@@ -9,6 +9,8 @@ TagManager:
   - Enemy
   - FollowCam
   - TorchLight
+  - Decor
+  - Door
   layers:
   - Default
   - TransparentFX

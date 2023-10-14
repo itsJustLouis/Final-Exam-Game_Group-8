@@ -1,25 +1,48 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Torch : MonoBehaviour
 {
-    Camera mainCam;
-    Vector3 mousePos;
 
-    private void Start()
+
+    public float glowDuration = 1.0f; 
+    public Color glowColor;
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        if (other.CompareTag("Door"))
+        {
+            SpriteRenderer renderer = other.GetComponent<SpriteRenderer>();
+            TilemapRenderer tileRend = other.GetComponent<TilemapRenderer>();
+
+            if (renderer != null)
+            {
+                renderer.color = glowColor;
+
+                StartCoroutine(RevertColor(renderer, glowColor, glowDuration));
+            }
+            if (tileRend != null)
+            {
+                renderer.color = glowColor;
+
+                //StartCoroutine(ReverttColor(tileRend, glowColor, glowDuration));
+            }
+        }
     }
 
-    private void Update()
+    private IEnumerator RevertColor(SpriteRenderer renderer, Color originalColor, float duration)
     {
-        mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
+        yield return new WaitForSeconds(duration);
 
-        Vector3 rotation = mousePos - transform.position;
-        float rotZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg - 90;
-
-        transform.rotation = Quaternion.Euler(0,0,rotZ);
+        renderer.color = originalColor;
     }
+    //private IEnumerator ReverttColor(TilemapRenderer renderer, Color originalColor, float duration)
+    //{
+    //    yield return new WaitForSeconds(duration);
+
+    //    renderer.color = originalColor;
+    //}
 
 }
