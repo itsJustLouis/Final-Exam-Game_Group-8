@@ -15,7 +15,7 @@ public class PlayerHealth : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Health:" + health);
+        //Debug.Log("Health:" + health);
         // Check if the player has collided with an object tagged "explosion"
         if (collision.gameObject.tag == "Explosion")
         {
