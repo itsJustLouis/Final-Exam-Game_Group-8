@@ -9,6 +9,12 @@ public class EnemyHealth : MonoBehaviour
     private Animator animator;
     private Rigidbody2D rb;
     public float knockbackForce;
+    public Color flashColor1 = Color.red;
+    public Color flashColor2 = Color.blue;
+    public bool isMoving = true;
+    public GameObject spawnObject1;
+    public GameObject spawnObject2;
+    private GameObject lastSpawned;
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
@@ -16,7 +22,7 @@ public class EnemyHealth : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public void TakeDamage(int damage, Vector3 hitDirection)
+    public void TakeDamage(int damage)
     {
         health -= damage;
 
@@ -25,8 +31,20 @@ public class EnemyHealth : MonoBehaviour
             Die();
         }else
         {
+            // Freeze the enemy
+            rb.bodyType = RigidbodyType2D.Static;
+
+            // Start the color flashing coroutine
+            StartCoroutine(FlashColor());
+
+
+            // After a few seconds, unfreeze the enemy and stop flashing
+            Invoke("Unfreeze", 3f);
+
+
             // Apply a force to the enemy in the opposite direction of the hit
-            GetComponent<Rigidbody2D>().AddForce(-hitDirection.normalized * knockbackForce, ForceMode2D.Impulse);
+            // GetComponent<Rigidbody2D>().AddForce(-hitDirection.normalized * knockbackForce, ForceMode2D.Impulse);
+
         }
     }
     void OnTriggerEnter2D(Collider2D other)
@@ -42,9 +60,13 @@ public class EnemyHealth : MonoBehaviour
             if (other.gameObject.CompareTag("DmgLight"))
             {
 
-                Vector3 hitDirection = other.transform.position - transform.position;
+
+
+
+
+               /// Vector3 hitDirection = other.transform.position - transform.position;
                 //reduce health here
-                TakeDamage(1, hitDirection);
+                TakeDamage(1);
                // canMove = false;
                // Invoke("CanMoveAgain", 1f);
             }
@@ -54,6 +76,11 @@ public class EnemyHealth : MonoBehaviour
     {
         // Play the death animation
         animator.SetTrigger("Blow");
+
+        // Spawn a new object at the enemy's position
+        //SpawnObject();
+
+
 
         // Set the Rigidbody to static
         rb.bodyType = RigidbodyType2D.Static;
@@ -77,4 +104,66 @@ public class EnemyHealth : MonoBehaviour
             Die();
         }
     }
+
+    IEnumerator FlashColor()
+    {
+        SpriteRenderer renderer = GetComponentInChildren<SpriteRenderer>();
+        bool useFirstColor = true;
+
+        while (rb.bodyType == RigidbodyType2D.Static)
+        {
+            // Change to the appropriate color
+            renderer.color = useFirstColor ? flashColor1 : flashColor2;
+            useFirstColor = !useFirstColor;
+
+            // Wait for a short time
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        // Change back to the original color
+        renderer.color = Color.white;
+    }
+
+    void Unfreeze()
+    {
+        if (health > 0)
+        {
+            // Unfreeze the enemy
+            rb.bodyType = RigidbodyType2D.Dynamic;
+        }
+    }
+    // Call this method to resume enemy movement
+    public void ResumeMoving()
+    {
+        isMoving = true;
+        rb.bodyType = RigidbodyType2D.Dynamic;
+    }
+    public void StopMoving()
+    {
+        // Set isMoving to false
+        isMoving = false;
+
+        // Stop the enemy from moving
+        // This depends on how you've implemented enemy movement
+        // For example, if you're using a Rigidbody2D to move the enemy, you can do:
+        rb.bodyType= RigidbodyType2D.Static;
+    }
+   public void SpawnObject()
+    {
+        GameObject toSpawn;
+
+        do
+        {
+            // Choose a random object to spawn
+            toSpawn = Random.value < 0.5f ? spawnObject1 : spawnObject2;
+        } while (toSpawn == lastSpawned);
+
+        lastSpawned = toSpawn;
+
+        // Instantiate the new object at this enemy's position
+        Instantiate(toSpawn, transform.position, Quaternion.identity);
+    }
+
+
+
 }

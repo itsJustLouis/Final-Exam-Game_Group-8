@@ -13,18 +13,10 @@ public class RotateFlashLight : MonoBehaviour
     }
 
     // Update is called once per frame
+    // Update is called once per frame
     void Update()
     {
-        Vector2 direction;
-
-        // Always use the mouse position for rotation
-        Vector3 mousePos = Input.mousePosition;
-        mousePos = mainCam.ScreenToWorldPoint(mousePos);
-
-        direction = new Vector2(
-            mousePos.x - transform.position.x,
-            mousePos.y - transform.position.y
-        );
+        Vector2 direction = Vector2.zero; // Initialize to a default value
 
         // Check if a Gamepad is connected
         if (Gamepad.current != null)
@@ -35,12 +27,21 @@ public class RotateFlashLight : MonoBehaviour
             {
                 // Use gamepad direction if there's significant movement
                 direction = gamepadDirection;
+                transform.up = direction; // Update rotation only when joystick is moved
             }
         }
+        else
+        {
+            // Use the mouse position for rotation
+            Vector3 mousePos = Input.mousePosition;
+            mousePos = mainCam.ScreenToWorldPoint(mousePos);
 
-        transform.up = direction;
+            direction = new Vector2(
+                mousePos.x - transform.position.x,
+                mousePos.y - transform.position.y
+            );
+
+            transform.up = direction; // Update rotation based on mouse position
+        }
     }
-
-
-
 }
