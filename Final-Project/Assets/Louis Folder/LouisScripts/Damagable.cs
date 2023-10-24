@@ -37,18 +37,6 @@ public class Damagable : MonoBehaviour
        
     }
 
-    //internal void Hit(int damagePoints)
-    //{
-    //    Health -= damagePoints;
-    //    if (Health <= 0)
-    //    {
-    //        OnDead?.Invoke();
-    //    }
-    //    else
-    //    {
-    //        OnHit?.Invoke();
-    //    }
-    //}
     public void OnCollisionEnter2D(Collision2D hitInfo)
     {
 
@@ -59,13 +47,7 @@ public class Damagable : MonoBehaviour
 
         }
     }
-    //public void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    if (collision.gameObject.tag == "TorchLight")
-    //    {
-    //        Health -= damage;
-    //    }
-    //}
+
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "TorchLight")
@@ -83,13 +65,9 @@ public class Damagable : MonoBehaviour
         if (Health <= 0)
         {
             OnDead?.Invoke();
-            // Debug.Log("DEAD");  //Enemy is dead
-
-            //m_Animator.GetComponent<Animator>().enabled = true;
-            //m_Animator.Play("exploding");
-
+ 
             healthCanva.gameObject.SetActive(false);
-            enemy.SetActive(false);
+            Destroy(enemy);
         }
         else
         {

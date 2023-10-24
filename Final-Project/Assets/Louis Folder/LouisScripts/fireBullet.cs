@@ -11,6 +11,7 @@ public class fireBullet : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindWithTag("Player")?.transform;
+        
         rb = GetComponent<Rigidbody2D>();
 
         if (player == null)
@@ -36,9 +37,5 @@ public class fireBullet : MonoBehaviour
             Destroy(gameObject, 2.3f);
         }
     }
-    //public void Initialize(Vector3 targetDirection, float speed)
-    //{
-    //    Rigidbody2D rb = GetComponent<Rigidbody2D>();
-    //    rb.velocity = targetDirection * speed;
-    //}
+
 }

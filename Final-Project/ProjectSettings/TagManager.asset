@@ -12,6 +12,7 @@ TagManager:
   - Ground
   - strike
   - slash
+  - shootParticle
   layers:
   - Default
   - TransparentFX

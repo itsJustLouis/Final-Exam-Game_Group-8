@@ -1,4 +1,3 @@
-
 using Pathfinding; //this is from the unity package i downloaded, so basically i just imported it here
 using System.Collections;
 using System.Collections.Generic;
@@ -107,7 +106,7 @@ public class EnemyAI : MonoBehaviour
 
 
 
-        // Attack behavior
+      
         float targetDistance = Vector2.Distance(rb.position, target.transform.position);
         if (followEnabled && targetDistance < activateDistance)
         {
@@ -119,19 +118,16 @@ public class EnemyAI : MonoBehaviour
 
                 if (melee && canAttack)
                 {
-                    //Instantiate the sword strike animation.
+                    
                     swordStrikeInstance = Instantiate(swordStrikePrefab, transform.position, Quaternion.identity);
                     canAttack = false;
                     Destroy(swordStrikeInstance, 0.35f);
                 }
                 if (shooting && canAttack)
                 {
-                    // Instantiate the bullet animation.
                     fireThrowInstance = Instantiate(fireThrowPrefab, transform.position, Quaternion.identity);
                     canAttack = false;
                 }
-                //dealing damage to the target
-
             }
             else
             {

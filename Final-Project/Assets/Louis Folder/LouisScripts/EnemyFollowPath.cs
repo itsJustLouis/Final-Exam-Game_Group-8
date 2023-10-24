@@ -32,6 +32,7 @@ public class EnemyFollowPath : MonoBehaviour
     [Header("Swarming Enemies")]
     public GameObject EnemyPrefab;
     private GameObject enemyInstance;
+    public List<GameObject> aliveEnemies = new List<GameObject>();
 
     public int maxInstances = 5; // Set the maximum number of instances you want to create
     private int currentInstanceCount = 0;
@@ -46,16 +47,19 @@ public class EnemyFollowPath : MonoBehaviour
     {
         posX = Random.Range(2, 5);
         detectionCoroutine = StartCoroutine(DetectPlayer());
+
             if (isPlayerDetected)
             {
-                // player detection
-                Debug.Log("Player detected!");
+            CheckEnemiesStatus();
+            // player detection
+            Debug.Log("Player detected!");
             StartCoroutine(SwarmPlayer());
 
             if (currentInstanceCount < maxInstances)
             {
                 Vector3 swarmSpawnPosition = transform.position + new Vector3(posX, 0f, 0f);
                 enemyInstance = Instantiate(EnemyPrefab, swarmSpawnPosition, Quaternion.identity);
+                aliveEnemies.Add(enemyInstance); // Add the new enemy to the list
                 currentInstanceCount++;
             }
         }
@@ -157,15 +161,35 @@ public class EnemyFollowPath : MonoBehaviour
 
     private IEnumerator SwarmPlayer()
     {
+        CheckEnemiesStatus();
         yield return new WaitForSeconds(1f);
         if (currentInstanceCount < maxInstances)
         {
             Vector3 swarmSpawnPosition = transform.position + new Vector3(posX, 0f, 0f);
             enemyInstance = Instantiate(EnemyPrefab, swarmSpawnPosition, Quaternion.identity);
+            aliveEnemies.Add(enemyInstance); // Add the new enemy to the list
             currentInstanceCount++;
         }
-    }
 
+    }
+    private void CheckEnemiesStatus()
+    {
+        for (int i = aliveEnemies.Count - 1; i >= 0; i--)
+        {
+            if (aliveEnemies[i] == null)
+            {
+                // An enemy has been destroyed
+                aliveEnemies.RemoveAt(i);
+                currentInstanceCount--;
+            }
+        }
+
+        // If all enemies are destroyed, reset the count
+        if (aliveEnemies.Count == 0)
+        {
+            currentInstanceCount = 0;
+        }
+    }
     private void OnDrawGizmos()
     {
         Gizmos.color = new Color(0.6f, 0.3f, 0.3f, 0.35f); // Light red color with some transparency
