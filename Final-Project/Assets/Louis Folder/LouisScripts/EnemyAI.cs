@@ -8,8 +8,8 @@ using UnityEngine;
 public class EnemyAI : MonoBehaviour
 {
     [Header("Pathfinding")] //this will show in the script editor
-    public Transform target;   //the target the enemy is targeting
-    public float activateDistance = 50f; //this will be the activation distance
+    public Transform target;   
+    public float activateDistance = 50f; 
     public float pathUpdateSeconds = 0.5f; //this is how often we are going to update the A* algorithm that is used to detect colliders
 
     [Header("Physics")]
@@ -17,7 +17,7 @@ public class EnemyAI : MonoBehaviour
     public float nextWaypointDistance = 3f; //this is how far away the enemy needs to be in order to start moving towards the next way point.
 
 
-    [Header("Custom Behaviour")] //this is useful for making enemies dumb.
+    [Header("Custom Behaviour")] 
     public bool followEnabled = true; //so if this is false, nothing in the script will do anything.
     public bool directionLookEnabled = true; //thats to see if the enemy will change direction or not.
     public bool withinStoppingDistance = false;
@@ -32,9 +32,9 @@ public class EnemyAI : MonoBehaviour
     [Header("Melee")]
     public GameObject swordStrikePrefab;
     private GameObject swordStrikeInstance;
-    private float lastAttackTime = 0.0f; // Track the time of the last attack.
-    private bool canAttack = true; // Flag to track if the enemy can attack.
-    public float attackCooldown = 3.0f; // Cooldown time between attacks.
+    private float lastAttackTime = 0.0f;
+    private bool canAttack = true; 
+    public float attackCooldown = 3.0f; 
 
 
     [Header("Shooting")]
@@ -81,7 +81,7 @@ public class EnemyAI : MonoBehaviour
             return;
         }
 
-        // Reached the end of the path
+      
         if (currentWayPoint >= path.vectorPath.Count)
         {
             return;
@@ -92,7 +92,7 @@ public class EnemyAI : MonoBehaviour
         Vector2 force = direction * speed;
 
         // Movement using Vector2.SmoothDamp
-        if (!withinStoppingDistance) // apply SmoothDamp only when the enemy is not within the stopping distance
+        if (!withinStoppingDistance) 
         {
             rb.velocity = Vector2.SmoothDamp(rb.velocity, force, ref currentVelocity, 0.5f);
         }

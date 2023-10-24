@@ -123,13 +123,13 @@ public class EnemyFollowPath : MonoBehaviour
         // Stop the enemy's movement during the attack
         moveSpeed = 0f;
 
-        // Wait for the attack stop time (4 seconds)
+        // Wait for the attack stop time
         yield return new WaitForSeconds(attackStopTime);
 
-        // Resume movement after the attack
+        // continue movement after attack
         moveSpeed = 2f;
 
-        // Move to the next waypoint after the attack
+        // Move to the next waypoint after attack
         waypointIndex++;
 
         // Reset the attack flag
@@ -149,7 +149,7 @@ public class EnemyFollowPath : MonoBehaviour
             {
                 // Player detected
                 isPlayerDetected = true;
-                yield break; // Exit the coroutine early since the player is detected
+                yield break; 
             }
         }
 
@@ -178,13 +178,13 @@ public class EnemyFollowPath : MonoBehaviour
         {
             if (aliveEnemies[i] == null)
             {
-                // An enemy has been destroyed
+                //enemy destroyed
                 aliveEnemies.RemoveAt(i);
                 currentInstanceCount--;
             }
         }
 
-        // If all enemies are destroyed, reset the count
+        // If all enemies destroyed, reset count
         if (aliveEnemies.Count == 0)
         {
             currentInstanceCount = 0;
@@ -192,7 +192,7 @@ public class EnemyFollowPath : MonoBehaviour
     }
     private void OnDrawGizmos()
     {
-        Gizmos.color = new Color(0.6f, 0.3f, 0.3f, 0.35f); // Light red color with some transparency
+        Gizmos.color = new Color(0.6f, 0.3f, 0.3f, 0.35f);
         Gizmos.DrawSphere(transform.position, detectionRange);
     }
 }

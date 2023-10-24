@@ -652,6 +652,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3605341579902718887}
   - component: {fileID: 2636466791850058679}
+  - component: {fileID: 1235143852}
   m_Layer: 0
   m_Name: Detection
   m_TagString: Untagged
@@ -753,3 +754,18 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!114 &1235143852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1788801186329379312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 297e736c17f8c1948854c43f3e6c9791, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minOuterRadius: 3
+  maxOuterRadius: 6
+  changeSpeed: 2
