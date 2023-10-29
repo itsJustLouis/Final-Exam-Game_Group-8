@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class EnemyHealth : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -15,21 +15,33 @@ public class EnemyHealth : MonoBehaviour
     public GameObject spawnObject1;
     public GameObject spawnObject2;
     private GameObject lastSpawned;
+    public Slider healthBar;
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
 
         rb = GetComponent<Rigidbody2D>();
+
+        healthBar.maxValue= health;
+        healthBar.value= health;
+
+
     }
 
     public void TakeDamage(int damage)
     {
         health -= damage;
 
+        Debug.Log("Taking " + damage + " damage");
+
+
         if (health <= 0)
         {
             Die();
-        }else
+            healthBar.value = health;
+
+        }
+        else
         {
             // Freeze the enemy
             rb.bodyType = RigidbodyType2D.Static;
@@ -41,7 +53,7 @@ public class EnemyHealth : MonoBehaviour
             // After a few seconds, unfreeze the enemy and stop flashing
             Invoke("Unfreeze", 3f);
 
-
+            healthBar.value = health;
             // Apply a force to the enemy in the opposite direction of the hit
             // GetComponent<Rigidbody2D>().AddForce(-hitDirection.normalized * knockbackForce, ForceMode2D.Impulse);
 
@@ -53,7 +65,7 @@ public class EnemyHealth : MonoBehaviour
         if (other.gameObject.CompareTag("Light"))
         {
             //canMove = true;
-
+            Debug.Log("Trigger entered with " + other.gameObject.tag);
         }
         else
         {

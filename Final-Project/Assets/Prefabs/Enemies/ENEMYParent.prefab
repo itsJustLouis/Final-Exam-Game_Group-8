@@ -114,7 +114,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6656733189195741193}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0000000018625, y: 0.0041, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.9235077, y: 1.4494097, z: 1.1255856}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -498,6 +498,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 10
   knockbackForce: 1
+  flashColor1: {r: 1, g: 0, b: 0, a: 1}
+  flashColor2: {r: 0, g: 0, b: 1, a: 1}
+  isMoving: 1
+  spawnObject1: {fileID: 0}
+  spawnObject2: {fileID: 0}
 --- !u!50 &6656733190776135339
 Rigidbody2D:
   serializedVersion: 4
