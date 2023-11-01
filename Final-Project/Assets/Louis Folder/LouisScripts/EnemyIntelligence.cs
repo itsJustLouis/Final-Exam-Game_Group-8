@@ -5,7 +5,7 @@ using UnityEngine;
 
 
 
-public class EnemyAI : MonoBehaviour
+public class EnemyIntelligence : MonoBehaviour
 {
     [Header("Pathfinding")] //this will show in the script editor
     public Transform target;   

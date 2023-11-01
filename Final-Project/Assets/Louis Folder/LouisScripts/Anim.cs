@@ -5,12 +5,12 @@ using UnityEngine;
 public class Anim : MonoBehaviour
 {
     private Animator myAnim;
-    private EnemyAI myEnemyAIScript;
+    private EnemyIntelligence myEnemyAIScript;
     // Start is called before the first frame update
     void Start()
     {
         myAnim = GetComponent<Animator>();
-        myEnemyAIScript = GetComponent<EnemyAI>();
+        myEnemyAIScript = GetComponent<EnemyIntelligence>();
     }
 
     // Update is called once per frame
