@@ -32,5 +32,35 @@ public class PlayerHealth : MonoBehaviour
                 //Destroy(gameObject);
             }
         }
+        if (collision.gameObject.tag == "strike")
+        {
+            // Decrease the player's health
+            health -= 10;
+
+            // Update the health bar
+            healthBar.value = health;
+
+            // Check if the player's health is 0 or less
+            if (health <= 0)
+            {
+                // If so, destroy the player object
+                //Destroy(gameObject);
+            }
+        }
+        if (collision.gameObject.tag == "slash")
+        {
+            // Decrease the player's health
+            health -= 10;
+
+            // Update the health bar
+            healthBar.value = health;
+
+            // Check if the player's health is 0 or less
+            if (health <= 0)
+            {
+                // If so, destroy the player object
+                //Destroy(gameObject);
+            }
+        }
     }
 }

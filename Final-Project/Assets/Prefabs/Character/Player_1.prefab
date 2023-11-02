@@ -179,10 +179,11 @@ GameObject:
   - component: {fileID: 226036650702021965}
   - component: {fileID: 226036650702022000}
   - component: {fileID: 5731156710075242184}
-  - component: {fileID: 8484949184092037572}
-  m_Layer: 0
+  - component: {fileID: 795218047}
+  - component: {fileID: 795218054}
+  m_Layer: 6
   m_Name: Player_1
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -194,7 +195,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 226036650702021966}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.45163596, y: -0.16714087, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -255,7 +256,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!114 &226036650702022003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,7 +269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2620f8fa34f56c346be225c51745cbdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MovementSpeed: 3
+  MovementSpeed: 2
   MovementSpeedCache: 0
   movementFilter:
     useTriggers: 0
@@ -286,12 +287,12 @@ MonoBehaviour:
     maxNormalAngle: 0
   collisionOffset: 0.05
   speed: 0
-  runSpeed: 7
+  runSpeed: 4
   stamina: 10
-  maxStamina: 10
+  maxStamina: 3
   isrunning: 0
-  FlashLight: {fileID: 0}
-  ConeLight: {fileID: 0}
+  FlashLight: {fileID: 435039835845746960}
+  ConeLight: {fileID: 2657297148321187092}
   accelerateAction:
     m_Name: Accelerate
     m_Type: 0
@@ -302,8 +303,8 @@ MonoBehaviour:
     m_SingletonActionBindings: []
     m_Flags: 0
   BatteryLevel: {fileID: 0}
-  DmgLightCollider: {fileID: 0}
-  LightCollider: {fileID: 0}
+  DmgLightCollider: {fileID: 3492712169417412741}
+  LightCollider: {fileID: 212222328445309830}
   StaminSlider: {fileID: 0}
   staminaDecreaseRate: 2
   staminaIncreaseRate: 1
@@ -358,7 +359,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!95 &226036650702022000
 Animator:
   serializedVersion: 4
@@ -392,7 +393,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.008496761, y: 0.30845073}
+  m_Offset: {x: 0.008496761, y: 0.25139433}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0}
@@ -403,24 +404,37 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.54876614, y: 0.42668813}
+  m_Size: {x: 0.54876614, y: 0.31257522}
   m_EdgeRadius: 0
---- !u!70 &8484949184092037572
-CapsuleCollider2D:
+--- !u!114 &795218047
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 226036650702021966}
   m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.025062323, y: 0.23081279}
-  m_Size: {x: 0.46162558, y: 0.46162558}
-  m_Direction: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ede725f36abe8e4419c11fb84037db80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 50
+  healthBar: {fileID: 0}
+--- !u!114 &795218054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 226036650702021966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 165df0e0e726fe547a0d456cd8b3043b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxBatteryLevel: 5
+  currentBatteryLevel: 0
+  batterySlider: {fileID: 0}
 --- !u!1 &680867429336916019
 GameObject:
   m_ObjectHideFlags: 0
@@ -625,7 +639,7 @@ PolygonCollider2D:
     m_Paths:
     - - {x: 1.0415415, y: 3.2590525}
       - {x: 1.0916289, y: 3.3849072}
-      - {x: 1.1188478, y: 3.5179517}
+      - {x: 1.1188478, y: 3.4779637}
       - {x: 0.64053535, y: 3.5680778}
       - {x: 0.1783362, y: 3.632165}
       - {x: -0.4079559, y: 3.6857386}
@@ -652,7 +666,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!1 &8391737253301150483
 GameObject:

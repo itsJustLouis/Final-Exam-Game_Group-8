@@ -9,7 +9,7 @@ public class EnemyIntelligence : MonoBehaviour
 {
     [Header("Pathfinding")] //this will show in the script editor
     public Transform target;   
-    public float activateDistance = 50f; 
+    public float activateDistance = 10f; 
     public float pathUpdateSeconds = 0.5f; //this is how often we are going to update the A* algorithm that is used to detect colliders
 
     [Header("Physics")]
@@ -18,7 +18,7 @@ public class EnemyIntelligence : MonoBehaviour
 
 
     [Header("Custom Behaviour")] 
-    public bool followEnabled = true; //so if this is false, nothing in the script will do anything.
+    public bool followEnabled = false; //so if this is false, nothing in the script will do anything.
     public bool directionLookEnabled = true; //thats to see if the enemy will change direction or not.
     public bool withinStoppingDistance = false;
 
@@ -54,6 +54,15 @@ public class EnemyIntelligence : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         InvokeRepeating("UpdatePath", 0f, pathUpdateSeconds);
+
+        if (TargetInDistance())
+        {
+            followEnabled = true;
+        }
+        else
+        {
+            followEnabled=false;
+        }
     }
 
     private void FixedUpdate()
@@ -152,6 +161,13 @@ public class EnemyIntelligence : MonoBehaviour
         {
             path = p;
             currentWayPoint = 0;
+        }
+    }
+    private void Update()
+    {
+        if (TargetInDistance())
+        {
+            followEnabled = true;
         }
     }
 }

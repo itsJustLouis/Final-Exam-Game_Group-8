@@ -411,29 +411,9 @@ PrefabInstance:
       propertyPath: OnHealthChange.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 7043564595699663372}
-    - target: {fileID: 134429182865189096, guid: e733592085830b44691ebfc99439d775, type: 3}
-      propertyPath: m_PointLightInnerAngle
-      value: 18.943214
-      objectReference: {fileID: 0}
-    - target: {fileID: 134429182865189096, guid: e733592085830b44691ebfc99439d775, type: 3}
-      propertyPath: m_PointLightOuterAngle
-      value: 53.649208
-      objectReference: {fileID: 0}
     - target: {fileID: 2948309115087882336, guid: e733592085830b44691ebfc99439d775, type: 3}
       propertyPath: m_Name
       value: StandardEnemy1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2948309115087882340, guid: e733592085830b44691ebfc99439d775, type: 3}
-      propertyPath: speed
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2948309115087882340, guid: e733592085830b44691ebfc99439d775, type: 3}
-      propertyPath: target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 2948309115087882340, guid: e733592085830b44691ebfc99439d775, type: 3}
-      propertyPath: activateDistance
-      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2948309115087882344, guid: e733592085830b44691ebfc99439d775, type: 3}
       propertyPath: m_RootOrder
@@ -478,38 +458,6 @@ PrefabInstance:
     - target: {fileID: 2948309115087882344, guid: e733592085830b44691ebfc99439d775, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3950511834317497119, guid: e733592085830b44691ebfc99439d775, type: 3}
-      propertyPath: ThisTransform
-      value: 
-      objectReference: {fileID: 7043564594962637009}
-    - target: {fileID: 5098956857706746424, guid: e733592085830b44691ebfc99439d775, type: 3}
-      propertyPath: m_Name
-      value: ENEMY LIGHT
-      objectReference: {fileID: 0}
-    - target: {fileID: 8283776644110293059, guid: e733592085830b44691ebfc99439d775, type: 3}
-      propertyPath: m_Color.b
-      value: 0.34069067
-      objectReference: {fileID: 0}
-    - target: {fileID: 8283776644110293059, guid: e733592085830b44691ebfc99439d775, type: 3}
-      propertyPath: m_Color.g
-      value: 0.34069067
-      objectReference: {fileID: 0}
-    - target: {fileID: 8283776644110293059, guid: e733592085830b44691ebfc99439d775, type: 3}
-      propertyPath: m_Color.r
-      value: 0.8301887
-      objectReference: {fileID: 0}
-    - target: {fileID: 8283776644110293059, guid: e733592085830b44691ebfc99439d775, type: 3}
-      propertyPath: m_FalloffIntensity
-      value: 0.548
-      objectReference: {fileID: 0}
-    - target: {fileID: 8283776644110293059, guid: e733592085830b44691ebfc99439d775, type: 3}
-      propertyPath: m_PointLightInnerRadius
-      value: 0.3030517
-      objectReference: {fileID: 0}
-    - target: {fileID: 8283776644110293059, guid: e733592085830b44691ebfc99439d775, type: 3}
-      propertyPath: m_PointLightOuterRadius
-      value: 1.53
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e733592085830b44691ebfc99439d775, type: 3}

@@ -6,11 +6,12 @@ using UnityEngine.Events;
 public class Damagable : MonoBehaviour
 {
    
-    public int MaxHealth = 100;
-    public int damage;
+    public int MaxHealth = 80;
+    public int damage = 15;
     private float lastDamageTime;
     public GameObject enemy;
     public Canvas healthCanva;
+    public Animator animator; 
 
     [SerializeField]
     private int health;
@@ -34,23 +35,14 @@ public class Damagable : MonoBehaviour
     private void Start()
     {
         Health = MaxHealth;
-       
+        animator = GetComponent<Animator>();
     }
 
-    public void OnCollisionEnter2D(Collision2D hitInfo)
-    {
-
-        if (hitInfo.gameObject.tag == "bullet")
-        {
-            Health -= 10;
-           
-
-        }
-    }
+  
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "TorchLight")
+        if (collision.gameObject.tag == "DmgLight")
         {
             // Check if enough time has passed since the last damage
             if (Time.time - lastDamageTime >= 0.5f)
@@ -59,15 +51,25 @@ public class Damagable : MonoBehaviour
                 lastDamageTime = Time.time; // Update the last damage time
             }
         }
+        if (collision.gameObject.tag == "Light")
+        {
+            // Check if enough time has passed since the last damage
+            if (Time.time - lastDamageTime >= 0.5f)
+            {
+                Health -= 15;
+                lastDamageTime = Time.time; // Update the last damage time
+            }
+        }
     }
     public void Update()
     {
+
         if (Health <= 0)
         {
-            OnDead?.Invoke();
- 
-            healthCanva.gameObject.SetActive(false);
-            Destroy(enemy);
+            animator.SetBool("Blow", true);
+            
+            StartCoroutine(waitAbit());
+            
         }
         else
         {
@@ -75,16 +77,15 @@ public class Damagable : MonoBehaviour
             //Debug.Log("STILL HERE"); //Enemy is still alive
         }
     }
-
+     IEnumerator waitAbit()
+    {
+        yield return new WaitForSeconds(1.5f);
+        healthCanva.gameObject.SetActive(false);
+        Destroy(enemy);
+    }
     public void ResetHealth()
     {
         Health = MaxHealth;
     }
-
-    public void Heal(int healthBoost)
-    {
-        Health += healthBoost;
-        Health = Mathf.Clamp(Health, 0, MaxHealth);
-        OnHeal?.Invoke();
-    }
+    
 }

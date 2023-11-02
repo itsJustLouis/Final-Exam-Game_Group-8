@@ -25,6 +25,7 @@ public class EnemyFollowPath : MonoBehaviour
     public float detectionRange = 5f; // The range within which the enemy can detect the player
     public float detectionInterval = 1f; // How often to check for the player
     private float posX;
+    private float posY;
     private bool isPlayerDetected = false;
 
     private Coroutine detectionCoroutine;
@@ -34,7 +35,7 @@ public class EnemyFollowPath : MonoBehaviour
     private GameObject enemyInstance;
     public List<GameObject> aliveEnemies = new List<GameObject>();
 
-    public int maxInstances = 5; // Set the maximum number of instances you want to create
+    public int maxInstances = 3; // Set the maximum number of instances you want to create
     private int currentInstanceCount = 0;
     private void Start()
     {
@@ -45,7 +46,8 @@ public class EnemyFollowPath : MonoBehaviour
 
     private void Update()
     {
-        posX = Random.Range(2, 5);
+        posX = Random.Range(1, 6);
+        posY = Random.Range(3, 7);
         detectionCoroutine = StartCoroutine(DetectPlayer());
 
             if (isPlayerDetected)
@@ -57,7 +59,7 @@ public class EnemyFollowPath : MonoBehaviour
 
             if (currentInstanceCount < maxInstances)
             {
-                Vector3 swarmSpawnPosition = transform.position + new Vector3(posX, 0f, 0f);
+                Vector3 swarmSpawnPosition = transform.position + new Vector3(posX, posY, 0f);
                 enemyInstance = Instantiate(EnemyPrefab, swarmSpawnPosition, Quaternion.identity);
                 aliveEnemies.Add(enemyInstance); // Add the new enemy to the list
                 currentInstanceCount++;
@@ -162,7 +164,7 @@ public class EnemyFollowPath : MonoBehaviour
     private IEnumerator SwarmPlayer()
     {
         CheckEnemiesStatus();
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(1.5f);
         if (currentInstanceCount < maxInstances)
         {
             Vector3 swarmSpawnPosition = transform.position + new Vector3(posX, 0f, 0f);

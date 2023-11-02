@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class slash : MonoBehaviour
 {
-    public float slashSpeed = 0.9f; // Adjust the speed as needed.
+    public float slashSpeed = 4; // Adjust the speed as needed.
     private Transform playerTransform;
 
     private void Start()
