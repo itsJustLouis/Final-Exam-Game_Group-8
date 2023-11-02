@@ -83,7 +83,7 @@ namespace Pathfinding {
 
 		/// <summary>Distance from the end of the path where the AI will start to slow down</summary>
 		public float slowdownDistance = 0.6F;
-		
+
 		/// <summary>
 		/// How far the AI looks ahead along the path to determine the point it moves to.
 		/// In world units.
@@ -161,7 +161,7 @@ namespace Pathfinding {
 
 		/// <summary>Helper which calculates points along the current path</summary>
 		protected PathInterpolator interpolator = new PathInterpolator();
-		
+
 		#region IAstarAI implementation
 
 		/// <summary>\copydoc Pathfinding::IAstarAI::Teleport</summary>
@@ -181,7 +181,7 @@ namespace Pathfinding {
 		public bool reachedDestination {
 			get {
 				if (!reachedEndOfPath) return false;
-				if (!interpolator.valid || remainingDistance + movementPlane.ToPlane(destination - interpolator.endPoint).magnitude > endReachedDistance) return false;
+				if (remainingDistance + movementPlane.ToPlane(destination - interpolator.endPoint).magnitude > endReachedDistance) return false;
 
 				// Don't do height checks in 2D mode
 				if (orientation != OrientationMode.YAxisForward) {
@@ -257,7 +257,6 @@ namespace Pathfinding {
 			if (path != null) path.Release(this);
 			path = null;
 			interpolator.SetPath(null);
-			reachedEndOfPath = false;
 		}
 
 		/// <summary>
@@ -269,7 +268,6 @@ namespace Pathfinding {
 		/// So when the agent is close to the destination this method will typically be called every <see cref="repathRate"/> seconds.
 		/// </summary>
 		public virtual void OnTargetReached () {
-			//adexplode here
 		}
 
 		/// <summary>
@@ -292,7 +290,6 @@ namespace Pathfinding {
 			// More info in p.errorLog (debug string)
 			if (p.error) {
 				p.Release(this);
-				SetPath(null);
 				return;
 			}
 
@@ -334,8 +331,6 @@ namespace Pathfinding {
 
 		protected override void ClearPath () {
 			CancelCurrentPathRequest();
-			if (path != null) path.Release(this);
-			path = null;
 			interpolator.SetPath(null);
 			reachedEndOfPath = false;
 		}
@@ -373,12 +368,11 @@ namespace Pathfinding {
 			var forwards = movementPlane.ToPlane(simulatedRotation * (orientation == OrientationMode.YAxisForward ? Vector3.up : Vector3.forward));
 
 			// Check if we have a valid path to follow and some other script has not stopped the character
-			bool stopped = isStopped || (reachedDestination && whenCloseToDestination == CloseToDestinationMode.Stop);
-			if (interpolator.valid && !stopped) {
+			if (interpolator.valid && !isStopped) {
 				// How fast to move depending on the distance to the destination.
 				// Move slower as the character gets closer to the destination.
 				// This is always a value between 0 and 1.
-				slowdown = distanceToEnd < slowdownDistance? Mathf.Sqrt(distanceToEnd / slowdownDistance) : 1;
+				slowdown = distanceToEnd < slowdownDistance? Mathf.Sqrt (distanceToEnd / slowdownDistance) : 1;
 
 				if (reachedEndOfPath && whenCloseToDestination == CloseToDestinationMode.Stop) {
 					// Slow down as quickly as possible
@@ -417,29 +411,6 @@ namespace Pathfinding {
 				nextRotation = rotation;
 			}
 		}
-		void OnTriggerEnter2D(Collider2D other)
-		{
-			// Check if the collided object is the trigger
-			if (other.gameObject.CompareTag("Light"))
-			{
-				canMove = true;
-            }
-            else
-            {
-                if (other.gameObject.CompareTag("DmgLight"))
-                {
-					//reduce health here
-					
-                    canMove = false;
-					Invoke("CanMoveAgain", 1f);
-                }
-            }
-		}
-
-		public void CanMoveAgain()
-        {
-			canMove = true;
-        }
 
 		static NNConstraint cachedNNConstraint = NNConstraint.Default;
 		protected override Vector3 ClampToNavmesh (Vector3 position, out bool positionChanged) {
@@ -463,7 +434,7 @@ namespace Pathfinding {
 					return position + movementPlane.ToWorld(difference);
 				}
 			}
-			
+
 			positionChanged = false;
 			return position;
 		}
@@ -507,9 +478,10 @@ namespace Pathfinding {
 #endif
 
 		protected override int OnUpgradeSerializedData (int version, bool unityThread) {
+			base.OnUpgradeSerializedData(version, unityThread);
 			// Approximately convert from a damping value to a degrees per second value.
 			if (version < 1) rotationSpeed *= 90;
-			return base.OnUpgradeSerializedData(version, unityThread);
+			return 2;
 		}
 	}
 }
