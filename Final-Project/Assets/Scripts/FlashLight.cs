@@ -19,7 +19,7 @@ public class FlashLight : MonoBehaviour
     {
         
         batterySlider.value = currentBatteryLevel;
-        Debug.Log(currentBatteryLevel);
+        //Debug.Log(currentBatteryLevel);
         if (currentBatteryLevel<5)
         {
             //currentBatteryLevel = maxBatteryLevel;
