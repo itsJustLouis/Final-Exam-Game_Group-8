@@ -396,7 +396,16 @@ namespace Pathfinding {
 			nextPosition = currentPosition + movementPlane.ToWorld(delta2D, verticalVelocity * lastDeltaTime);
 			CalculateNextRotation(slowdown, out nextRotation);
 		}
-
+		void OnTriggerEnter2D(Collider2D other)
+		{
+			// Check if the collided object is the trigger
+			if (other.gameObject.CompareTag("Light"))
+			{
+				canMove = true;
+				
+			}
+			
+		}
 		protected virtual void CalculateNextRotation (float slowdown, out Quaternion nextRotation) {
 			if (lastDeltaTime > 0.00001f && enableRotation) {
 				Vector2 desiredRotationDirection;

@@ -92,7 +92,7 @@ public class EnemyHealth : MonoBehaviour
         // Spawn a new object at the enemy's position
         //SpawnObject();
 
-
+        ///DeactivateEnemy();
 
         // Set the Rigidbody to static
         rb.bodyType = RigidbodyType2D.Static;
@@ -105,7 +105,7 @@ public class EnemyHealth : MonoBehaviour
     {
         if (health<=0)
         {
-            gameObject.SetActive(false);
+            Destroy(gameObject);
         }
     }
     private void Update()

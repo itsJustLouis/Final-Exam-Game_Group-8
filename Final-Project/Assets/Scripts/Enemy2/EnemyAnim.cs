@@ -41,8 +41,9 @@ public class EnemyAnim : MonoBehaviour
     {
         ExplosionObject.SetActive(false);
         Enemyparent.SetActive(false);
-        EnemyHealth.DeactivateEnemy();
         EnemyHealth.SpawnObject();
+        EnemyHealth.DeactivateEnemy();
+       
     }
     void Animate(Vector2 direction)
     {

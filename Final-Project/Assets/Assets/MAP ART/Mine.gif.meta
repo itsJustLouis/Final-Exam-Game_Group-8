@@ -25315,7 +25315,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Mine_1140: 1267664668
+      Mine_321: 118414760
       Mine_25: 1606007647
       Mine_506: 497154066
       Mine_769: -339484589
@@ -25619,22 +25619,22 @@ TextureImporter:
       Mine_143: 2062020157
       Mine_642: 1027624962
       Mine_344: -357407373
-      Mine_858: 1471013706
+      Mine_295: 456246693
       Mine_775: 2072680078
-      Mine_1180: 26929813
+      Mine_624: 359260657
       Mine_1022: -836130282
       Mine_1175: 2067447341
       Mine_514: 480754879
       Mine_1158: -1489192750
       Mine_1033: -434003004
       Mine_183: 553346676
-      Mine_295: 456246693
+      Mine_858: 1471013706
       Mine_686: 873959287
       Mine_851: -969805976
       Mine_14: -694653167
       Mine_266: 669477880
       Mine_807: 1631234369
-      Mine_624: 359260657
+      Mine_1180: 26929813
       Mine_837: -1124414984
       Mine_600: -556949978
       Mine_935: 592300698
@@ -26513,8 +26513,8 @@ TextureImporter:
       Mine_263: -1902253189
       Mine_320: -122339216
       Mine_920: 637517009
-      Mine_321: 118414760
       Mine_969: -201521603
+      Mine_1140: 1267664668
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
