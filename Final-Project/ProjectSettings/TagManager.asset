@@ -13,6 +13,10 @@ TagManager:
   - Explosion
   - BatteryUI
   - Battery
+  - slash
+  - strike
+  - Enemy
+  - KILL ZONE
   layers:
   - Default
   - TransparentFX

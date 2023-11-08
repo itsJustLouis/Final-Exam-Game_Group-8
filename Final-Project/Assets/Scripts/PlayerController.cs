@@ -180,11 +180,6 @@ public class PlayerController : MonoBehaviour
 
         }
 
-
-       
-
-
-
     }
     IEnumerator StopRunningAfterDelay(float delay)
     {
@@ -218,7 +213,7 @@ public class PlayerController : MonoBehaviour
             // If the player is not running and the light is off, turn it back on after a delay
             if (FlashLight.intensity == 0f)
             {
-                Invoke("TurnOnLight", 3f); // Wait for 3 seconds before turning on the light
+                Invoke("TurnOnLight", 2f); // Wait for 3 seconds before turning on the light
             }
         }
     }
@@ -226,8 +221,8 @@ public class PlayerController : MonoBehaviour
     {
         if (!isrunning)
         {
-            FlashLight.intensity = 2f;
-            ConeLight.intensity = 2f;
+            FlashLight.intensity = .5f;
+            ConeLight.intensity = .8f;
         }
         else
         {
