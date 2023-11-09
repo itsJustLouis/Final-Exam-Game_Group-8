@@ -50,6 +50,7 @@ public class EnemyIntelligence : MonoBehaviour
 
     public void Start()
     {
+        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
 
