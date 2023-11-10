@@ -61,6 +61,16 @@ public class PlayerHealth : MonoBehaviour
                 // If so, destroy the player object
                 //Destroy(gameObject);
             }
+           
         }
+        if (collision.gameObject.CompareTag("Health"))
+        {
+            //increase player health
+            health = ((int)healthBar.maxValue);
+            healthBar.value = health;
+            collision.gameObject.SetActive(false);
+        }
+
+
     }
 }

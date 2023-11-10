@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class EnemyHealth : MonoBehaviour
 {
     // Start is called before the first frame update
-    public int health = 100;
+    public int health;
     private Animator animator;
     private Rigidbody2D rb;
     public float knockbackForce;
