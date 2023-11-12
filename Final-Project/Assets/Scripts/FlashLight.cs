@@ -24,11 +24,16 @@ public class FlashLight : MonoBehaviour
         {
             //currentBatteryLevel = maxBatteryLevel;
         }
+
     }
 
    public void DecreaseBatteryLevel()
     {
-      
+        if (Time.timeScale == 0f)
+        {
+            // If the gameis paused, dont decrease battery
+            return;
+        }
         if (currentBatteryLevel <= 0)
         {
             // Call this function when you want to decrease the battery level

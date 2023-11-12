@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
 public class EnemyIntelligence : MonoBehaviour
 {
     [Header("Pathfinding")] //this will show in the script editor

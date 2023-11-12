@@ -16,6 +16,12 @@ public class RotateFlashLight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Time.timeScale == 0f)
+        {
+            // If the game is paused, don't update rotation
+            return;
+        }
+
         Vector2 direction = Vector2.zero; // Initialize to a default value
 
         // Check if a Gamepad is connected

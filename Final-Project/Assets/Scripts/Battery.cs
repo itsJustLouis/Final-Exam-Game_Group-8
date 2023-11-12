@@ -26,7 +26,7 @@ public class Battery : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("Battery:" + currentAmount);
+       // Debug.Log("Battery:" + currentAmount);
         if (currentAmount < batteryLevel && !isRegenerating)
         {
             StartCoroutine(Regenerate());
