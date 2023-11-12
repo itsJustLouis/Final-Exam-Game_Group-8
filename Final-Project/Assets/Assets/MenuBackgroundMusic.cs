@@ -11,7 +11,7 @@ public class MenuBackgroundMusic : MonoBehaviour
         if (backgroundMusic == null)
         {
             backgroundMusic = this;
-            DontDestroyOnLoad(backgroundMusic);
+         //   DontDestroyOnLoad(backgroundMusic);
         }
         else
         {
@@ -33,13 +33,17 @@ public class MenuBackgroundMusic : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "Main-Scene")
-        {
-            StopBackgroundMusic();
-        }
+        //if (scene.name == "Main-Scene")
+        //{
+        //    StopBackgroundMusic();
+        //    Destroy(gameObject);
+        //    backgroundMusic = null;
+        //}
         if (scene.name == "IntroCutScene")
         {
             StopBackgroundMusic();
+            Destroy(gameObject);
+           // backgroundMusic=null;
         }
     }
 }
