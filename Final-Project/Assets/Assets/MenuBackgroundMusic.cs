@@ -37,5 +37,9 @@ public class MenuBackgroundMusic : MonoBehaviour
         {
             StopBackgroundMusic();
         }
+        if (scene.name == "IntroCutScene")
+        {
+            StopBackgroundMusic();
+        }
     }
 }

@@ -14,7 +14,10 @@ public class StartScreen : MonoBehaviour
     {
         SceneManager.LoadScene("Main-Scene");
     }
-
+    public void IntroToGame()
+    {
+        SceneManager.LoadScene("IntroCutScene");
+    }
     public void StartTut()
     {
         
