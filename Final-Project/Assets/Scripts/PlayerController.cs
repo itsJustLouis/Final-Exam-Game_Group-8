@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    #region( Variables)
     private Rigidbody2D rb;
     private Animator anim;
     public float MovementSpeed;
@@ -35,6 +36,9 @@ public class PlayerController : MonoBehaviour
     public float staminaRefillDelay = 2f;
     private bool isRunning = false;
     private bool isRefillingStamina = false;
+    #endregion
+
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -52,21 +56,13 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     public void OnMove(InputValue inputValue)
     {
-
-        movementInput = inputValue.Get<Vector2>();
-
-      
-    }
-   
-
+        movementInput = inputValue.Get<Vector2>();    
+    }  
    
     public bool IsRunning()
     {
-        
             isrunning = true;
-
        /// StopCoroutine("TurnOnLight");
-
         return isrunning;
     }
    public bool IsNotRunning()
