@@ -909,13 +909,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69155aa30be33e448b9227dac5257483, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  health: 4
   knockbackForce: 1
   flashColor1: {r: 1, g: 0, b: 0, a: 1}
   flashColor2: {r: 0, g: 0, b: 1, a: 1}
   isMoving: 1
   spawnObject1: {fileID: 2818145354839120789, guid: d6cca8b1579bce242822ec68626fab3b, type: 3}
-  spawnObject2: {fileID: 4408297078803504308, guid: 6ee7328bd47ef9847b9856a09c3a568b, type: 3}
+  spawnObject2: {fileID: 1923519102420678208, guid: 6ee7328bd47ef9847b9856a09c3a568b, type: 3}
   healthBar: {fileID: 0}
 --- !u!50 &6656733190776135339
 Rigidbody2D:

@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     public GameObject PausePanel;
-
+    private bool isPaused = false;
     // Update is called once per frame
     void Update()
     {
@@ -15,16 +15,35 @@ public class PauseMenu : MonoBehaviour
             PausePanel.SetActive(false);
             Time.timeScale = 1f;
         }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (isPaused)
+            {
+                // Unpause the game
+                Continue();
+                isPaused = false;
+            }
+            else
+            {
+                // Pause the game
+                Pause();
+                isPaused = true;
+            }
+        }
+
+
     }
     public void Pause()
     {
         PausePanel.SetActive(true);
         Time.timeScale = 0f;
+        isPaused = true;
     }
     public void Continue()
     {
         PausePanel.SetActive(false);
         Time.timeScale = 1f;
+        isPaused = false;
     }
 
     public void StartScreen()

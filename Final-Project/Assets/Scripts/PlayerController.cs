@@ -102,7 +102,7 @@ public class PlayerController : MonoBehaviour
     }
     private void OnFire()
     {
-        if (BatteryLevel.currentBatteryLevel>=1)
+        if (BatteryLevel.currentBatteryLevel>=1 && Time.timeScale!=0)
         {
             FlashLight.color = Color.red;
             Invoke("WhiteFlash", 0.5f);
