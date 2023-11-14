@@ -54,7 +54,7 @@ public class EnemyFollowPath : MonoBehaviour
             {
             CheckEnemiesStatus();
             // player detection
-            Debug.Log("Player detected!");
+         //   Debug.Log("Player detected!");
             StartCoroutine(SwarmPlayer());
 
             if (currentInstanceCount < maxInstances)
@@ -75,7 +75,7 @@ public class EnemyFollowPath : MonoBehaviour
             {
                 hasAttacked = true;
                 stoppingPoint = Random.Range(0, waypoints.Length);
-                Debug.Log(stoppingPoint);
+               // Debug.Log(stoppingPoint);
             }
             return;
         }

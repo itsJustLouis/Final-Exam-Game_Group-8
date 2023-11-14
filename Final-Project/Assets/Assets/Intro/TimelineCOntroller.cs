@@ -11,48 +11,34 @@ public class TimelineCOntroller : MonoBehaviour
 
     void Update()
     {
-        if (skipTimeline)
-        {
-            SkipTimeline();
-            skipTimeline = false;
-        }
+        //if (skipTimeline)
+        //{
+        //    SkipTimeline();
+        //    skipTimeline = false;
+        //}
     }
 
-    void SkipTimeline()
-    {
-        if (playableDirector != null)
-        {
-            double endTime = playableDirector.playableAsset.duration;           
-            playableDirector.time = endTime;
-            playableDirector.Evaluate();
-        }
-    }
-    public void OnSkipButtonClicked()
-    {
-        skipTimeline = true;
-    }
+    //void SkipTimeline()
+    //{
+    //    if (playableDirector != null)
+    //    {
+    //        double endTime = playableDirector.playableAsset.duration;           
+    //        playableDirector.time = endTime;
+    //        playableDirector.Evaluate();
+    //    }
+    //}
 
 
-
-    public void NextSlide()
-    {
-        MoveToNextSlide();
-    }
 
     public void MoveToNextSlide()
     {
         if (playableDirector != null)
         {
             double currentTime = playableDirector.time;
-
-            // Find the next keyframe or marker on the timeline
+            playableDirector.Pause();
             double nextKeyframe = GetNextKeyframe(currentTime);
-
-            // Move the timeline to the next keyframe
             playableDirector.time = nextKeyframe;
-
-            // Evaluate to make sure the changes take effect
-            playableDirector.Evaluate();
+            playableDirector.Play();
         }
     }
 
@@ -64,16 +50,17 @@ public class TimelineCOntroller : MonoBehaviour
 
             if (timelineAsset != null)
             {
-                // Iterate through the markers and keyframes on the timeline
-                foreach (IMarker marker in timelineAsset.markerTrack.GetMarkers())
+                if (timelineAsset.markerTrack != null)
                 {
-                    if (marker.time > currentTime)
+                    foreach (IMarker marker in timelineAsset.markerTrack.GetMarkers())
                     {
-                        return marker.time;
+                        if (marker.time > currentTime)
+                        {
+                            return marker.time;
+                        }
                     }
                 }
 
-                // If no markers are found, find the next keyframe
                 foreach (TrackAsset track in timelineAsset.GetRootTracks())
                 {
                     foreach (TimelineClip clip in track.GetClips())
@@ -87,16 +74,26 @@ public class TimelineCOntroller : MonoBehaviour
             }
         }
 
-        // If no keyframes or markers are found, return the end time of the timeline
-        return playableDirector.playableAsset.duration;
+        return playableDirector != null ? playableDirector.playableAsset.duration : 0;
     }
 
 
 
-
+//public void OnSkipButtonClicked()
+//    {
+//        skipTimeline = true;
+//    }
+    public void NextSlide()
+    {
+        MoveToNextSlide();
+    }
     public void StartGame()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene("Main-Scene");
+    }
+    public void Tutorial()
+    {
+        SceneManager.LoadScene("Tutorial");
     }
 }

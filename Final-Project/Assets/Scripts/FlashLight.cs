@@ -73,7 +73,7 @@ public class FlashLight : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Battery"))
         {
-            Debug.Log("Player collided with a Battery object");
+           // Debug.Log("Player collided with a Battery object");
             // Add your logic here for what should happen when the player collides with the Battery
             other.gameObject.SetActive(false);
             IncreaseBatteryLevel();

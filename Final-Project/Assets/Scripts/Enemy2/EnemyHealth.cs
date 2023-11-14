@@ -65,7 +65,7 @@ public class EnemyHealth : MonoBehaviour
         if (other.gameObject.CompareTag("Light"))
         {
             //canMove = true;
-            Debug.Log("Trigger entered with " + other.gameObject.tag);
+         //   Debug.Log("Trigger entered with " + other.gameObject.tag);
         }
         else
         {

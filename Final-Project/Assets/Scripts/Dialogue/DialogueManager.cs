@@ -50,7 +50,7 @@ public class DialogueManager : MonoBehaviour
 
     void EndDialogue()
     {
-        SceneManager.LoadScene("Main-Scene");
+        SceneManager.LoadScene("IntroCutScene");
     }
 
     IEnumerator TypeSentence(string sentence)
@@ -62,5 +62,10 @@ public class DialogueManager : MonoBehaviour
             dialogueText.text += letter;
             yield return null;
         }
+    }
+
+    public void SkipDialogue()
+    {
+        SceneManager.LoadScene("Main-Scene");
     }
 }
